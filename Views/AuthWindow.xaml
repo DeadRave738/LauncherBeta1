@@ -1,0 +1,75 @@
+﻿<Window x:Class="MinecraftLauncher.Views.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Minecraft Launcher" Height="818" Width="1052" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="0*"/>
+		</Grid.ColumnDefinitions>
+		<!-- Фон с текстурой -->
+		<Image Source="pack://application:,,,/Resources/Backgrounds/bg.jpg" Stretch="UniformToFill"/>
+
+		<!-- Основной контент -->
+		<Grid Margin="50,50,18,50">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<!-- Заголовок -->
+			<StackPanel Grid.Row="0" Margin="0,0,0,20" HorizontalAlignment="Center">
+				<Image Source="pack://application:,,,/Resources/Icons/logo.png" Width="100" Height="100" Margin="0,0,0,10"/>
+				<TextBlock Text="SquadMine Launcher" FontSize="36" FontWeight="Bold" Foreground="White"/>
+				<TextBlock Text="Tchnomagic 1.12.2" FontSize="18" Foreground="#FFB3B3B3"/>
+			</StackPanel>
+
+			<!-- Форма авторизации -->
+			<Border Grid.Row="1" Background="#99000000" CornerRadius="10" Padding="30" Margin="0,0,0,59" Grid.RowSpan="2" HorizontalAlignment="Left" Width="953">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<TextBlock Grid.Row="0" Text="Вход в аккаунт" FontSize="24" Margin="0,0,0,20" HorizontalAlignment="Center" Foreground="White"/>
+
+					<TextBox Grid.Row="1" x:Name="txtUsername"
+                             Style="{StaticResource CustomTextBoxStyle}"
+                             materialDesign:HintAssist.Hint="Имя пользователя"
+                             PreviewKeyDown="txtUsername_PreviewKeyDown" Cursor="Hand" FontFamily="Arial" SelectionOpacity="0" BorderThickness="18,0,0,0" FontSize="22" Padding="16,-2,12,8"/>
+
+					<PasswordBox Grid.Row="2" x:Name="txtPassword"
+                                 Style="{StaticResource CustomPasswordBoxStyle}"
+                                 materialDesign:HintAssist.Hint="Пароль"
+                                 PreviewKeyDown="txtPassword_PreviewKeyDown"/>
+
+					<StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+						<Button Content="Зарегистрироваться" Style="{StaticResource FlatButtonStyle}" Click="btnRegister_Click" Height="47" />
+						<Button x:Name="btnLogin" Content="Войти" Click="btnLogin_Click" Margin="10,0,0,0" Background="#FF673AB7" Foreground="White" Height="36" Padding="16,-2,16,4"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+
+			<!-- Нижняя панель -->
+			<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+				<TextBlock Text="© 2023 Ваш сервер Minecraft. Все права защищены." Foreground="#FFB3B3B3" VerticalAlignment="Center"/>
+				<Button Content="Политика конфиденциальности" Style="{StaticResource FlatButtonStyle}" Foreground="#FFB3B3B3" Margin="20,0,0,0" Click="btnPrivacyPolicy_Click" Visibility="Hidden"/>
+				<Button Content="Диагностика сети" Click="btnDiagnostics_Click" 
+        Style="{StaticResource FlatButtonStyle}" 
+        Foreground="#FFB3B3B3" 
+        Margin="20,0,0,0" Padding="16,-6,16,4" UseLayoutRounding="True"/>
+			</StackPanel>
+		</Grid>
+
+		<!-- Прогресс-бар для загрузки -->
+		<ProgressBar x:Name="progressBar" Height="3" VerticalAlignment="Top" Visibility="Collapsed" Foreground="#FF673AB7" Margin="0,815,0,0"/>
+	</Grid>
+</Window>

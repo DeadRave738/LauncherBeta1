@@ -1,0 +1,37 @@
+﻿<Window x:Class="MinecraftLauncher.Views.LicenseAgreementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Лицензионное соглашение" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen" Foreground="Black">
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
+			<GradientStop Color="#FFA9270A"/>
+			<GradientStop Color="#FF29986D" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="Лицензионное соглашение" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+		<ScrollViewer Grid.Row="1" Margin="0,0,0,61" Background="#F5F5F5" BorderThickness="1" BorderBrush="#E0E0E0" Padding="10">
+			<TextBlock x:Name="txtLicense" TextWrapping="Wrap" FontSize="14" Foreground="Black" Background="#FF8A8A8A" Width="755" Height="406" OpacityMask="#FF171515"/>
+		</ScrollViewer>
+
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,415,0,0" Width="760">
+			<CheckBox x:Name="chkAgree" Content="Я принимаю условия лицензионного соглашения" Height="49" Width="412" RenderTransformOrigin="0.502,0.577" Checked="chkAgree_Checked" Padding="2,-4,0,1" BorderBrush="#FFF526A1" OpacityMask="#FF696262" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,5,5,10">
+				<CheckBox.Background>
+					<SolidColorBrush Color="#FF3C1428" Opacity="0.995"/>
+				</CheckBox.Background>
+			</CheckBox>
+			<Button x:Name="btnAccept" Content="Продолжить" IsEnabled="False" Click="btnAccept_Click" 
+                    Background="#FF673AB7" Foreground="White" Padding="20,-5,20,5" Height="33" Width="321" RenderTransformOrigin="0.504,0.62" UseLayoutRounding="True"/>
+		</StackPanel>
+	</Grid>
+</Window>

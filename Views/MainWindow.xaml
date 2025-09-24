@@ -1,0 +1,15 @@
+﻿<Window x:Class="SMLauncherCS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SMLauncherCS"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+	<Grid>
+		<Button x:Name="btnStartForge" Content="Запустить с Forge" 
+        Click="btnStartForge_Click" 
+        Background="#FF673AB7" Foreground="White" Padding="15,8" 
+        Margin="0,181,0,213" HorizontalAlignment="Center" Width="248"/>
+	</Grid>
+</Window>
