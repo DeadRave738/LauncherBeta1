@@ -613,19 +613,6 @@ namespace MinecraftLauncher.Core
             }
         }
 
-        // Вспомогательный класс для десериализации индекса ресурсов
-        private class AssetsIndex
-        {
-            public Dictionary<string, AssetObject> objects { get; set; }
-        }
-
-        private class AssetObject
-        {
-            public string hash { get; set; }
-            public int size { get; set; }
-        }
-
-
         public void StartMinecraft(User user)
         {
             try
@@ -1067,51 +1054,63 @@ namespace MinecraftLauncher.Core
         }
 
         // Добавьте эти вспомогательные классы
+        // Измените все внутренние классы для соответствия PascalCase
         private class MinecraftVersionConfig
         {
-            public string id { get; set; }
-            public string mainClass { get; set; }
-            public string minecraftArguments { get; set; }
-            public List<Library> libraries { get; set; }
+            public string Id { get; set; }
+            public string MainClass { get; set; }
+            public string MinecraftArguments { get; set; }
+            public List<Library> Libraries { get; set; }
         }
 
         private class Library
         {
-            public string name { get; set; }
-            public Downloads downloads { get; set; }
-            public List<Rule> rules { get; set; }
-            public Extract extract { get; set; }
-            public string url { get; set; }
+            public string Name { get; set; }
+            public Downloads Downloads { get; set; }
+            public List<Rule> Rules { get; set; }
+            public Extract Extract { get; set; }
+            public string Url { get; set; }
         }
 
         private class Downloads
         {
-            public Artifact artifact { get; set; }
-            public Dictionary<string, Artifact> classifiers { get; set; }
+            public Artifact Artifact { get; set; }
+            public Dictionary<string, Artifact> Classifiers { get; set; }
         }
 
         private class Artifact
         {
-            public string path { get; set; }
-            public string url { get; set; }
-            public string sha1 { get; set; }
-            public int size { get; set; }
+            public string Path { get; set; }
+            public string Url { get; set; }
+            public string Sha1 { get; set; }
+            public int Size { get; set; }
         }
 
         private class Rule
         {
-            public string action { get; set; }
-            public Os os { get; set; }
+            public string Action { get; set; }
+            public Os Os { get; set; }
         }
 
         private class Os
         {
-            public string name { get; set; }
+            public string Name { get; set; }
         }
 
         private class Extract
         {
-            public List<string> exclude { get; set; }
+            public List<string> Exclude { get; set; }
+        }
+
+        private class AssetsIndex
+        {
+            public Dictionary<string, AssetObject> Objects { get; set; }
+        }
+
+        private class AssetObject
+        {
+            public string Hash { get; set; }
+            public int Size { get; set; }
         }
 
         private bool ShouldLoadLibrary(Library lib, PlatformID platform)

@@ -6,6 +6,7 @@ using MinecraftLauncher.Models;
 
 namespace MinecraftLauncher.Core
 {
+    private readonly MySqlConnection _connection;
     // Добавьте этот метод в класс DatabaseManager
     private MySqlConnection GetConnection()
     {

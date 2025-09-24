@@ -15,12 +15,59 @@ namespace MinecraftLauncher.Views
             Loaded += (s, e) => txtUsername.Focus();
         }
 
-        private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            await AttemptLogin();
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Password;
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Пожалуйста, введите имя пользователя и пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            progressBar.Visibility = Visibility.Visible;
+
+            try
+            {
+                using (var db = new DatabaseManager())
+                {
+                    // Используем Task.Run для выполнения операции в фоновом потоке
+                    User user = await Task.Run(() => db.LoginUser(username, password));
+
+                    if (user != null)
+                    {
+                        // Если токены не установлены, генерируем их
+                        if (string.IsNullOrEmpty(user.AccessToken) || string.IsNullOrEmpty(user.ClientToken))
+                        {
+                            user.AccessToken = SecurityManager.GenerateToken();
+                            user.ClientToken = SecurityManager.GenerateToken();
+                            await Task.Run(() => db.UpdateUserTokens(user.Id, user.AccessToken, user.ClientToken));
+                        }
+
+                        // Закрываем окно авторизации
+                        this.DialogResult = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверное имя пользователя или пароль", "Ошибка входа",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при входе: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                progressBar.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void txtUsername_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TxtUsername_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
@@ -29,7 +76,7 @@ namespace MinecraftLauncher.Views
             }
         }
 
-        private async void txtPassword_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TxtPassword_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
@@ -63,19 +110,20 @@ namespace MinecraftLauncher.Views
     this.Title = "Minecraft Launcher - Проверка данных...";
 }
 
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             var registrationWindow = new RegistrationWindow();
             registrationWindow.Owner = this;
             registrationWindow.ShowDialog();
         }
 
-        private void btnPrivacyPolicy_Click(object sender, RoutedEventArgs e)
+        private void BtnPrivacyPolicy_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Политика конфиденциальности вашего сервера...", "Политика конфиденциальности",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        private void btnDiagnostics_Click(object sender, RoutedEventArgs e)
+
+        private void BtnDiagnostics_Click(object sender, RoutedEventArgs e)
         {
             var diagnosticsWindow = new DiagnosticsWindow();
             diagnosticsWindow.Owner = this;

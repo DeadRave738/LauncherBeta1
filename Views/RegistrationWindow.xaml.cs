@@ -8,6 +8,8 @@ namespace MinecraftLauncher.Views
 {
     public partial class RegistrationWindow : Window
     {
+        bool success = new DatabaseManager().RegisterUser(txtUsername.Text, txtPassword.Password);
+
         public RegistrationWindow()
         {
             InitializeComponent();
